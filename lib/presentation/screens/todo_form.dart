@@ -9,7 +9,7 @@ class TodoForm extends StatefulWidget {
   final int? index;
   final TodoModel? todoModel;
 
-  const TodoForm({Key? key, this.todoModel, required this.isEditing, this.index}) : super(key: key);
+  const TodoForm({super.key, this.todoModel, required this.isEditing, this.index});
 
   @override
   _TodoFormState createState() => _TodoFormState();
@@ -102,6 +102,24 @@ class _TodoFormState extends State<TodoForm> {
                     }
                     Navigator.pop(context);
                   }
+                },
+              ),
+              ElevatedButton(
+                child: Text('Play'),
+                onPressed: () {
+
+                },
+              ),
+              ElevatedButton(
+                child: Text('Pause'),
+                onPressed: () {
+
+                },
+              ),
+              ElevatedButton(
+                child: Text('Stop'),
+                onPressed: () {
+
                 },
               ),
             ],

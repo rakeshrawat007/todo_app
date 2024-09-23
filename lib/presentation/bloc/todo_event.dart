@@ -21,3 +21,22 @@ class DeleteTodoEvent extends TodoEvent {
 
   DeleteTodoEvent(this.index);
 }
+
+// Add these events
+class StartTimerEvent extends TodoEvent {
+  final int index;
+
+  StartTimerEvent(this.index);
+}
+
+class PauseTimerEvent extends TodoEvent {
+  final int index;
+
+  PauseTimerEvent(this.index);
+}
+
+class CancelTimerEvent extends TodoEvent {
+  final int index;
+
+  CancelTimerEvent(this.index);
+}

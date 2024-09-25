@@ -24,7 +24,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     super.initState();
-    remainingTime = widget.duration*60;
+    remainingTime = widget.duration;
     isRunning = false;
   }
 

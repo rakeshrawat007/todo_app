@@ -36,9 +36,9 @@ dependencies:
   firebase_ui_firestore:
   flutter_local_notifications: ^17.2.3
   flutter_bloc: ^8.1.6
-  change_app_package_name: ^1.4.0
   hive_flutter:
   hive:
+  change_app_package_name: ^1.4.0
   flutter_slidable: ^3.1.1
 
 

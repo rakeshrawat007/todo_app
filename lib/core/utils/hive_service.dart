@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../data/models/todo_model.dart';
+import '../../data/models/todo_model.g.dart';
 
 class HiveService {
   Future<void> initHive() async {

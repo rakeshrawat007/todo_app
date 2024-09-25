@@ -1,4 +1,7 @@
+import 'package:todo_assesment/presentation/bloc/todo_state.dart';
+
 import '../../data/models/todo_model.dart';
+import '../../domain/entities/todo_entities.dart';
 
 abstract class TodoEvent {}
 
@@ -22,21 +25,48 @@ class DeleteTodoEvent extends TodoEvent {
   DeleteTodoEvent(this.index);
 }
 
-// Add these events
 class StartTimerEvent extends TodoEvent {
   final int index;
+  final TodoEntity todo;
 
-  StartTimerEvent(this.index);
+  StartTimerEvent(this.index, this.todo);
 }
 
 class PauseTimerEvent extends TodoEvent {
   final int index;
-
   PauseTimerEvent(this.index);
 }
 
-class CancelTimerEvent extends TodoEvent {
+class ResumeTimerEvent extends TodoEvent {
   final int index;
+  ResumeTimerEvent(this.index);
+}
 
-  CancelTimerEvent(this.index);
+class UpdateTodoStatusEvent extends TodoEvent {
+  final int index;
+  final TodoStatus newStatus;
+  final int remainingTime;
+  UpdateTodoStatusEvent(this.index, this.newStatus,this.remainingTime);}
+
+
+
+class StartTodoTimerEvent extends TodoEvent {
+  final int index;
+  StartTodoTimerEvent(this.index);
+}
+
+class PauseTodoTimerEvent extends TodoEvent {
+  final int index;
+  PauseTodoTimerEvent(this.index);
+}
+
+class RestartTodoTimerEvent extends TodoEvent {
+  final int index;
+  RestartTodoTimerEvent(this.index);
+}
+
+class TickTodoTimerEvent extends TodoEvent {
+  final int index;
+  final int remainingTime;
+  TickTodoTimerEvent(this.index, this.remainingTime);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_assesment/presentation/bloc/todo_state.dart';
 import '../../data/models/todo_model.dart';
 import '../bloc/todo_bloc.dart';
 import '../bloc/todo_event.dart';
@@ -46,83 +47,73 @@ class _TodoFormState extends State<TodoForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(labelText: 'Title'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _timeController,
-                decoration: const InputDecoration(labelText: 'Time in Minutes'),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter time';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                child: Text(widget.isEditing ? 'Update' : 'Save'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final todo = TodoModel(
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      timer: int.parse(_timeController.text),
-                      isCompleted: false,
-                      isRunning: false,
-                    );
-                    if (widget.isEditing) {
-                      context.read<TodoBloc>().add(EditTodoEvent(widget.index!, todo));
-                    } else {
-                      context.read<TodoBloc>().add(AddTodoEvent(todo));
+      appBar: AppBar(title: Text(widget.isEditing ? 'Update Todo' :'Add Todo'),),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: 'Title'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a title';
                     }
-                    Navigator.pop(context);
-                  }
-                },
-              ),
-              ElevatedButton(
-                child: Text('Play'),
-                onPressed: () {
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Description'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a description';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _timeController,
+                  decoration: const InputDecoration(labelText: 'Time in Minutes'),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter time';
+                    }
+                    final int? time = int.tryParse(value);
+                    if (time == null || time < 1 || time > 5) {
+                      return 'Time must be an integer between 1 and 5 minutes';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
 
-                },
-              ),
               ElevatedButton(
-                child: Text('Pause'),
-                onPressed: () {
+                  child: Text(widget.isEditing ? 'Update' : 'Save'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      final todo = TodoModel(
+                        title: _titleController.text,
+                        description: _descriptionController.text,
+                        timer: int.parse(_timeController.text),
+                        status: TodoStatus.TODO
+                      );
+                      if (widget.isEditing) {
+                        context.read<TodoBloc>().add(EditTodoEvent(widget.index!, todo));
+                      } else {
+                        context.read<TodoBloc>().add(AddTodoEvent(todo));
+                      }
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
 
-                },
-              ),
-              ElevatedButton(
-                child: Text('Stop'),
-                onPressed: () {
-
-                },
-              ),
-            ],
+            ]
+            ),
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 
 
+import 'package:todo_assesment/data/models/todo_model.dart';
+
 import '../todo_repositrory.dart';
 
 class GetTodosUseCase {
@@ -7,7 +9,7 @@ class GetTodosUseCase {
 
   GetTodosUseCase(this.repository);
 
-  List call() {
+  Future<List<TodoModel>> call() {
     return repository.getTodos();
   }
 }

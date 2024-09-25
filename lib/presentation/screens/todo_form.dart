@@ -99,7 +99,7 @@ class _TodoFormState extends State<TodoForm> {
                       final todo = TodoModel(
                         title: _titleController.text,
                         description: _descriptionController.text,
-                        timer: int.parse(_timeController.text),
+                        timer: int.parse(_timeController.text) * 60,
                         status: TodoStatus.TODO
                       );
                       if (widget.isEditing) {
